@@ -69,13 +69,8 @@ public class DataBase {
         Statement statement;
         try {
             statement = connection.createStatement();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return;
-        }
-
-        try {
             statement.executeUpdate(query);
+            statement.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -85,13 +80,9 @@ public class DataBase {
         Statement statement;
         try {
             statement = connection.createStatement();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-
-        try {
-            return statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery(query);
+            statement.close();
+            return resultSet;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
