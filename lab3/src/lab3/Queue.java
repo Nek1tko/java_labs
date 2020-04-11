@@ -18,19 +18,12 @@ public class Queue {
         System.out.println("Added " + student);
     }
 
-    public synchronized Student getStudent(Robot robot) {
+    public Student getStudent(Robot robot) {
         Student student = queue.peek();
-        assert student != null;
-        if (student.getCourse().toString().equals(robot.getName())) {
-            queue.remove();
-            notifyAll();
-            return student;
-        }
-        else {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if (student != null) {
+            if (student.getCourse().toString().equals(robot.getName())) {
+                queue.remove();
+                return student;
             }
         }
         return null;

@@ -1,5 +1,7 @@
 package lab3;
 
+import java.util.concurrent.Semaphore;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -18,8 +20,9 @@ public class Main {
             e.printStackTrace();
         }
 
+        Semaphore semaphore = new Semaphore(1);
         for (int i = 0; i < amountRobots; ++i) {
-            robots[i] = new Robot(queue);
+            robots[i] = new Robot(queue, semaphore);
         }
         robots[0].setName("Math");
         robots[1].setName("OOP");
