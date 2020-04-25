@@ -116,11 +116,13 @@ public class DataBase {
                 String title = resultSet.getString("title");
                 double cost = resultSet.getDouble("cost");
                 System.out.println(prodid + " " + title + " " + cost);
+                resultSet.close();
             }
         }
         else {
             System.out.println("There are no records");
         }
+
     }
 
     public void showProducts() {
@@ -140,6 +142,7 @@ public class DataBase {
             try {
                 resultSet.next();
                 System.out.println("Product with title " + title + " has price " + resultSet.getInt("cost"));
+                resultSet.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
