@@ -13,16 +13,9 @@ public class Main {
         generator.setDaemon(true);
         generator.start();
 
-        try {
-            Thread.sleep(1000);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         Semaphore semaphore = new Semaphore(1);
         for (int i = 0; i < amountRobots; ++i) {
-            robots[i] = new Robot(queue, semaphore);
+            robots[i] = new Robot(queue, semaphore, generator);
         }
         robots[0].setName("Math");
         robots[1].setName("OOP");

@@ -51,10 +51,8 @@ public class Generator extends Thread {
 
     @Override
     public void run() {
-        while (!isInterrupted()) {
-            if (amount > 0) {
-                generate();
-            }
+        while (amount > 0) {
+            generate();
         }
     }
 }

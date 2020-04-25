@@ -5,10 +5,12 @@ import java.util.concurrent.Semaphore;
 public class Robot extends Thread {
     private Queue queue;
     private Semaphore semaphore;
+    private Generator generator;
 
-    Robot(Queue queue, Semaphore semaphore) {
+    Robot(Queue queue, Semaphore semaphore, Generator generator) {
         this.semaphore = semaphore;
         this.queue = queue;
+        this.generator = generator;
     }
 
     private void process(Student student) {
@@ -24,7 +26,7 @@ public class Robot extends Thread {
 
     @Override
     public void run() {
-        while (!queue.isEmpty()) {
+        while (!queue.isEmpty() || generator.isAlive()) {
             try {
                 semaphore.acquire();
             } catch (InterruptedException e) {
