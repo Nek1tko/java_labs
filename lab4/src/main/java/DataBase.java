@@ -49,6 +49,7 @@ public class DataBase {
                             ");";
                     executeUpdate(createQuery);
                 }
+                resultSet.close();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -116,8 +117,8 @@ public class DataBase {
                 String title = resultSet.getString("title");
                 double cost = resultSet.getDouble("cost");
                 System.out.println(prodid + " " + title + " " + cost);
-                resultSet.close();
             }
+            resultSet.close();
         }
         else {
             System.out.println("There are no records");
