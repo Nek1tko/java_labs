@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.*;
 
 public class Parser {
@@ -39,7 +40,11 @@ public class Parser {
         }
         scanner.nextLine();
 
-        DataBase.instance().addProduct(name, cost);
+        try {
+            DataBase.instance().addProduct(name, cost);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void parseDelete() {
@@ -62,7 +67,7 @@ public class Parser {
             System.out.println("Command /show_all mustn't contains arguments");
         }
 
-        DataBase.instance().showProducts();
+        DataOutput.showTable(DataBase.instance().getProducts());
     }
 
     private void parseGetPrice() {
@@ -77,7 +82,7 @@ public class Parser {
         }
         scanner.nextLine();
 
-        DataBase.instance().getPriceByTitle(name);
+        DataOutput.showPrice(DataBase.instance().getPriceByTitle(name));
     }
 
     private void parseChangePrice() {
@@ -111,7 +116,11 @@ public class Parser {
         }
         scanner.nextLine();
 
-        DataBase.instance().showProductsInPriceRange(leftBorder, rightBorder);
+        try {
+            DataOutput.showTable(DataBase.instance().getProductsInPriceRange(leftBorder, rightBorder));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void parseCommand() {
@@ -143,7 +152,7 @@ public class Parser {
             cost = scanner.nextDouble();
         }
         else {
-            throw new NoSuchElementException("You must pass cost wiht this command");
+            throw new NoSuchElementException("You must pass cost with this command");
         }
 
         return cost;
